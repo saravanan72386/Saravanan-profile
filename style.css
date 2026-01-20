@@ -1,0 +1,412 @@
+/* ================= ROOT VARIABLES ================= */
+:root {
+  --blue: #000000;
+  --violet: #371451;
+  --glass: rgba(255, 255, 255, 0.1);
+}
+
+/* ================= GLOBAL RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* ================= FLOATING ANIMATION ================= */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ================= GLASS EFFECT ================= */
+.glass-box {
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+}
+
+/* ================= NAVBAR ================= */
+.glass-nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88%;
+  max-width: 1200px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(14px);
+  border-radius: 25px;
+  z-index: 1000;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+}
+
+.glass-nav nav {
+  display: flex;
+  gap: 30px;
+}
+
+.glass-nav nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ================= HERO SECTION ================= */
+/* ================= HERO SECTION ================= */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.hero-content {
+  max-width: 900px;
+}
+
+/* Main heading */
+.hero-title {
+  font-size: 3.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-title span {
+  color: #ffd86b;
+}
+
+/* Role text */
+.hero-role {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+
+.hero-role span {
+  display: block;
+  margin: 6px 0;
+  font-weight: 400;
+}
+
+.hero-role strong {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #ffd86b;
+}
+
+/* Description */
+.hero-desc {
+  font-size: 1.05rem;
+  max-width: 650px;
+  margin: 0 auto 45px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* Buttons */
+.hero-buttons {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 36px;
+  border-radius: 35px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn.primary {
+  background: #ffd86b;
+  color: #000;
+  font-weight: 600;
+}
+
+.btn.primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+}
+
+.btn.outline {
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.btn.outline:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* ================= ABOUT SECTION ================= */
+
+.about {
+  padding: 120px 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.about h2 {
+  text-align: center;
+  font-size: 2.6rem;
+  margin-bottom: 80px;
+}
+
+/* ================= LAYOUT ================= */
+
+.about-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+/* ================= ABOUT TEXT ================= */
+
+.about-text p {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  opacity: 0.9;
+}
+
+/* ================= HIGHLIGHT CARDS ================= */
+
+.about-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.highlight-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  padding: 32px 34px;
+  border-radius: 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Hover effect */
+.highlight-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.6);
+}
+
+.highlight-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+}
+
+.highlight-card p {
+  font-size: 1rem;
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .about-text p {
+    text-align: center;
+  }
+}
+
+/* ================= PROJECTS ================= */
+/* ================= PROJECTS SECTION ================= */
+
+/* ================= PROJECTS SECTION ================= */
+
+.projects {
+  padding: 120px 40px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.projects h2 {
+  text-align: center;
+  font-size: 2.6rem;
+  margin-bottom: 80px;
+}
+
+/* ================= GRID ================= */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 50px;
+}
+
+/* ================= CARD ================= */
+
+.project-card {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 45px 90px rgba(0, 0, 0, 0.65);
+}
+
+/* ================= IMAGE ================= */
+
+.project-image {
+  overflow: hidden;
+}
+
+.project-image img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.project-card:hover img {
+  transform: scale(1.12);
+}
+
+/* ================= CONTENT ================= */
+
+.project-info {
+  padding: 28px 30px 34px;
+}
+
+.project-info h3 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.project-info p {
+  font-size: 1rem;
+  line-height: 1.7;
+  opacity: 0.9;
+  margin-bottom: 18px;
+}
+
+/* ================= TAGS ================= */
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-tags span {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 600px) {
+  .project-image img {
+    height: 200px;
+  }
+}
+
+
+/* ================= CONTACT ================= */
+/* ================= CONTACT SECTION ================= */
+/* ================= CONTACT SECTION ================= */
+
+.contact-section {
+  padding: 100px 20px;
+  text-align: center;
+}
+.contact-section h2 {
+  font-size: 2.6rem;
+  margin-bottom: 15px;
+}
+.contact-subtitle {
+  opacity: 0.85;
+  margin-bottom: 50px;
+  font-style: italic;
+  font-weight: 100;
+}
+
+/* Cards layout */
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Clickable card */
+.contact-card {
+  text-decoration: none;
+  color: #fff;
+  padding: 30px;
+  border-radius: 22px;
+  transition: all 0.35s ease;
+  position: relative;
+}
+
+/* Hover effect */
+.contact-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+}
+
+/* Title */
+.contact-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+/* Text */
+.contact-card p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+  word-break: break-all;
+}
+
+/* Action text */
+.contact-action {
+  display: inline-block;
+  margin-top: 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffd86b;
+  letter-spacing: 0.5px;
+}
