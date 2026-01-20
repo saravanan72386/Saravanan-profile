@@ -200,6 +200,7 @@ nav a:hover::after {
   gap: 18px;
   margin-top: 30px;
   flex-wrap: wrap;
+  padding-left: 100px;
 }
 
 /* COMMON BUTTON */
