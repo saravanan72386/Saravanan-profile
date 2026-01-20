@@ -261,18 +261,6 @@ nav a:hover::after {
   opacity: 0;
 }
 
-/* MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-  .hero-buttons {
-    justify-content: center;
-  }
-
-  .btn {
-    width: 100%;
-    text-align: center;
-  }
-}
-
 /* ================= ABOUT SECTION ================= */
 
 .about {
@@ -516,4 +504,123 @@ nav a:hover::after {
   font-weight: 600;
   color: #ffd86b;
   letter-spacing: 0.5px;
+}
+/* ================= MOBILE CONTACT PREMIUM ================= */
+@media (max-width: 768px) {
+
+  .contact-section {
+    padding: 80px 18px;
+  }
+
+  .contact-section h2 {
+    font-size: 2.1rem;
+  }
+
+  .contact-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+  }
+
+  /* GRID REFINEMENT */
+  .contact-cards {
+    grid-template-columns: repeat(2, 1fr); /* 🔥 key change */
+    gap: 16px;
+  }
+
+  /* CARD DESIGN */
+  .contact-card {
+    padding: 22px 18px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+    text-align: left;
+  }
+
+  .contact-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .contact-card p {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    margin-bottom: 12px;
+  }
+
+  /* CTA TEXT */
+  .contact-action {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #ffd86b;
+  }
+
+  /* FULL WIDTH FOR IMPORTANT ACTIONS */
+  .contact-card.email,
+  .contact-card.phone {
+    grid-column: span 2;
+  }
+
+}
+
+/* ================= MOBILE PROFESSIONAL HERO ================= */
+@media (max-width: 768px) {
+
+  /* HERO SECTION */
+  .hero {
+    padding-top: 110px;
+    padding-bottom: 80px;
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 92%;
+  }
+
+  .hero-title {
+    font-size: 2.3rem;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .hero-role {
+    font-size: 1.35rem;
+    margin-bottom: 18px;
+  }
+
+  .hero-role strong {
+    font-size: 1.8rem;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    padding: 0 8px;
+  }
+
+  /* BUTTON LAYOUT — KEY CHANGE */
+  .hero-buttons {
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* row style */
+    gap: 14px;
+    justify-content: center;
+  }
+
+  /* Make primary CTA full width */
+  .hero-buttons .btn.primary {
+    grid-column: span 2;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 14.5px;
+    border-radius: 16px;
+  }
+
 }
