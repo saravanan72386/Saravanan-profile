@@ -15,44 +15,36 @@
 <body>
 
   <!-- ================= NAVBAR ================= -->
- <header class="glass-nav">
+<header class="navbar">
   <div class="nav-container">
-    <h1 class="logo">PORTFOLIO</h1>
 
-    <!-- Hamburger -->
-    <div class="menu-toggle" id="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <!-- Logo -->
+    <div class="nav-logo">P O R T F O L I O</div>
 
-    <!-- Nav links -->
-    <nav id="nav-menu">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+    <!-- TEXT NAVBAR -->
+    <nav class="nav">
+      <a href="#home" class="nav-btn">Home</a>
+      <a href="#projects" class="nav-btn">Projects</a>
+      <a href="#about" class="nav-btn">About</a>
+      <a href="#contact" class="nav-btn">Contact</a>
     </nav>
+
   </div>
 </header>
-
- <script>
-  const toggle = document.getElementById("menu-toggle");
-  const nav = document.getElementById("nav-menu");
-
-  toggle.addEventListener("click", () => {
-    nav.classList.toggle("active");
-    toggle.classList.toggle("open");
-  });
-</script>
 
   <!-- =============== NAVBAR END =============== -->
 
 
   <!-- ================= HERO SECTION ================= -->
- <section id="home" class="hero">
-  <div class="hero-content">
+<section id="home" class="hero">
 
+  <!-- Unicorn Studio Background -->
+  <div class="hero-bg">
+    <div data-us-project="bRizFO34fA4Yqcb2Qmrb" class="unicorn-canvas"></div>
+  </div>
+
+  <!-- Your existing content -->
+  <div class="hero-content">
     <h1 class="hero-title">
       Hi, I'm <span>Saravanan</span>
     </h1>
@@ -69,94 +61,132 @@
     </p>
 
     <div class="hero-buttons">
-  <a href="#projects" class="btn primary">View Projects</a>
-
-  <a href="#contact" class="btn outline">Hire Me</a>
-
-  <a href="./UI UX Designer_saravavanan_resume.pdf"
-     class="btn outline"
-     download>
-     Download Resume
-  </a>
-</div>
-
-
+      <a href="#projects" class="btn primary">View Projects</a>
+      <a href="#contact" class="btn outline">Hire Me</a>
+      <a href="./UI UX Designer_saravavanan_resume.pdf"
+         class="btn outline"
+         download>
+         Download Resume
+      </a>      
+    </div>
   </div>
+
 </section>
+
+<!-- Unicorn Script (same as before) -->
+<script type="text/javascript">
+!function(){
+  var u=window.UnicornStudio;
+  if(u && u.init){
+    if(document.readyState==="loading"){
+      document.addEventListener("DOMContentLoaded",function(){u.init()})
+    }else{
+      u.init()
+    }
+  }else{
+    window.UnicornStudio={isInitialized:!1};
+    var i=document.createElement("script");
+    i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.3/dist/unicornStudio.umd.js";
+    i.onload=function(){
+      if(document.readyState==="loading"){
+        document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})
+      }else{
+        UnicornStudio.init()
+      }
+    };
+    (document.head||document.body).appendChild(i)
+  }
+}();
+</script>
+
 
   <!-- =============== HERO END =============== -->
 
 
   <!-- ================= ABOUT SECTION ================= -->
-  <section id="about" class="about">
-    <h2>About Me</h2>
+<section id="about" class="about">
+  <h2>About Me</h2>
 
-    <div class="about-layout">
+  <div class="about-layout">
 
-      <!-- About Text -->
-      <div class="about-text">
-        <p>
-          I am a passionate fresher Front-End Developer with a strong interest
-          in creating clean, responsive, and user-friendly websites. I enjoy
-          transforming design concepts into functional web interfaces using
-          modern HTML and CSS practices. I am highly motivated to learn new
-          technologies and grow as a developer.
-        </p>
+    <!-- LEFT SIDE FLIP CARDS -->
+    <div class="about-highlights">
+
+      <div class="flip-card gradient-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            UI / UX Designer
+          </div>
+          <div class="flip-card-back">
+            Passionate about clean, user-friendly and modern UI design.
+          </div>
+        </div>
       </div>
 
-      <!-- Highlight Cards -->
-      <div class="about-highlights">
-
-        <div class="highlight-card">
-          <h3>🎯 Career Goal</h3>
-          <p>
-            To start my career as a Front-End Developer and grow into a
-            full-stack professional.
-          </p>
+      <div class="flip-card gradient-card">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            Frontend Developer
+          </div>
+          <div class="flip-card-back">
+            Skilled in HTML, CSS, JavaScript and responsive web design.
+          </div>
         </div>
-
-        <div class="highlight-card">
-          <h3>💡 Strengths</h3>
-          <p>
-            Quick learner, strong UI sense, problem-solving mindset, and
-            attention to detail.
-          </p>
-        </div>
-
       </div>
+
     </div>
-  </section>
+
+    <!-- RIGHT SIDE ABOUT TEXT -->
+    <div class="glass-card">
+      <p>
+        I am a creative and detail-oriented UI/UX Designer and Frontend Developer.  
+        I focus on building visually appealing, user-friendly, and responsive websites.  
+        I love designing clean interfaces that improve user experience and engagement.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+
+
   <!-- =============== ABOUT END =============== -->
 
 
   <!-- ================= PROJECTS SECTION ================= -->
- <section id="projects" class="projects">
+<section id="projects" class="projects">
   <h2>My Projects</h2>
 
   <div class="projects-grid">
 
-    <!-- Project Card -->
-    <div class="project-card">
+    <!-- Project Card 1 (Clickable Link) -->
+    <a href="https://saravanan72386.github.io/Thangavel-veenai-manufacturer/"
+       target="_blank"
+       class="project-card">
+
       <div class="project-image">
-        <img src="./port1" alt="Portfolio Website">
+        <img src="./music" alt="Portfolio Website">
       </div>
 
       <div class="project-info">
-        <h3>Portfolio Website</h3>
+        <h3>Veena Manufacturer Website</h3>
         <p>
-          Responsive personal portfolio with clean UI, smooth layout
-          and mobile-friendly design.
+          Responsive website for Veena manufacturer with modern UI and mobile-friendly design.
         </p>
 
         <div class="project-tags">
           <span>HTML</span>
           <span>CSS</span>
-          <span>Responsive</span>
+          <span>Website</span>
         </div>
-      </div>
-    </div>
 
-    <!-- Project Card -->
+        <span class="view-live">View Live →</span>
+      </div>
+    </a>
+
+
+    <!-- Project Card 2 (Normal) -->
     <div class="project-card">
       <div class="project-image">
         <img src="./port2" alt="UI Website">
@@ -165,8 +195,7 @@
       <div class="project-info">
         <h3>UI Landing Page</h3>
         <p>
-          Modern landing page focusing on typography, spacing
-          and user experience.
+          Modern landing page focusing on typography, spacing and user experience.
         </p>
 
         <div class="project-tags">
@@ -179,6 +208,7 @@
 
   </div>
 </section>
+
 
   <!-- =============== PROJECTS END =============== -->
 
@@ -195,7 +225,7 @@
 
     <!-- Email -->
     <a href="mailto:thangavelsaravanan386@email.com"
-       class="contact-card glass-box floating"
+       class="contact-card email"
        target="_blank">
       <h3>📧 Email</h3>
       <p>thangavelsaravanan386@email.com</p>
@@ -204,7 +234,7 @@
 
     <!-- Phone -->
     <a href="tel:+919360628386"
-       class="contact-card glass-box floating">
+       class="contact-card phone">
       <h3>📞 Phone</h3>
       <p>+91 9360628386</p>
       <span class="contact-action">Call Now →</span>
@@ -212,7 +242,7 @@
 
     <!-- LinkedIn -->
     <a href="https://www.linkedin.com/in/saravanan386"
-       class="contact-card glass-box floating"
+       class="contact-card"
        target="_blank">
       <h3>💼 LinkedIn</h3>
       <p>linkedin.com/in/saravanan386</p>
@@ -221,7 +251,7 @@
 
     <!-- GitHub -->
     <a href="https://github.com/saravanan72386"
-       class="contact-card glass-box floating"
+       class="contact-card"
        target="_blank">
       <h3>🐙 GitHub</h3>
       <p>github.com/saravanan72386</p>
@@ -230,6 +260,7 @@
 
   </div>
 </section>
+
 
 
   <!-- =============== CONTACT END =============== -->
