@@ -10,8 +10,9 @@
 
   <!-- CSS Link -->
   <link rel="stylesheet" href="style.css"/>
+  <!-- GOOGLE FONT -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
 
   <!-- ================= NAVBAR ================= -->
@@ -38,12 +39,12 @@
   <!-- ================= HERO SECTION ================= -->
 <section id="home" class="hero">
 
-  <!-- Unicorn Studio Background -->
+  <!-- UNICORN STUDIO BACKGROUND -->
   <div class="hero-bg">
-    <div data-us-project="bRizFO34fA4Yqcb2Qmrb" class="unicorn-canvas"></div>
+    <div data-us-project="hMDwMJTTZUJYWFnDPEpI" class="unicorn-canvas"></div>
   </div>
 
-  <!-- Your existing content -->
+  <!-- HERO CONTENT -->
   <div class="hero-content">
     <h1 class="hero-title">
       Hi, I'm <span>Saravanan</span>
@@ -66,38 +67,38 @@
       <a href="./UI UX Designer_saravavanan_resume.pdf"
          class="btn outline"
          download>
-         Download Resume
-      </a>      
+        Download Resume
+      </a>
     </div>
   </div>
 
 </section>
 
-<!-- Unicorn Script (same as before) -->
-<script type="text/javascript">
+
+
+  <!-- Unicorn Studio Script -->
+<script>
 !function(){
   var u=window.UnicornStudio;
-  if(u && u.init){
+  if(u&&u.init){
     if(document.readyState==="loading"){
       document.addEventListener("DOMContentLoaded",function(){u.init()})
-    }else{
-      u.init()
-    }
+    }else{u.init()}
   }else{
-    window.UnicornStudio={isInitialized:!1};
+    window.UnicornStudio={isInitialized:false};
     var i=document.createElement("script");
-    i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.3/dist/unicornStudio.umd.js";
+    i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js";
     i.onload=function(){
       if(document.readyState==="loading"){
         document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})
-      }else{
-        UnicornStudio.init()
-      }
+      }else{UnicornStudio.init()}
     };
     (document.head||document.body).appendChild(i)
   }
 }();
 </script>
+
+
 
 
   <!-- =============== HERO END =============== -->
@@ -147,6 +148,100 @@
 
   </div>
 </section>
+<script>
+const aboutSection = document.querySelector(".about");
+
+const aboutObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      aboutSection.classList.add("show");
+    }
+  });
+}, { threshold: 0.3 });
+
+aboutObserver.observe(aboutSection);
+</script>
+
+
+ <!-- SKILLS -->
+<section id="skills" class="skills">
+
+  <h2 class="skills-title">Skills</h2>
+
+  <!-- Frontend -->
+  <div class="skill-row">
+    <h3>Frontend</h3>
+    <div class="skill-line">
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
+        <span>HTML5</span>
+      </div>
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
+        <span>CSS3</span>
+      </div>
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
+        <span>JavaScript</span>
+      </div>
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg">
+        <span>React</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- UI UX -->
+  <div class="skill-row">
+    <h3>UI / UX Design</h3>
+    <div class="skill-line">
+      <div class="skill-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
+        <span>UI Design</span>
+      </div>
+      <div class="skill-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png">
+        <span>UX Research</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tools -->
+  <div class="skill-row">
+    <h3>Tools</h3>
+    <div class="skill-line">
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg">
+        <span>Figma</span>
+      </div>
+      <div class="skill-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg">
+        <span>Adobe XD</span>
+      </div>
+      <div class="skill-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
+        <span>AI Tools</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const items = document.querySelectorAll(".skill-item");
+
+const skillObserver = new IntersectionObserver(entries => {
+  entries.forEach((entry, index) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "translateY(0)";
+      }, index * 100);
+    }
+  });
+}, { threshold: 0.3 });
+
+items.forEach(item => skillObserver.observe(item));
+</script>
 
 
 
@@ -208,60 +303,65 @@
 
   </div>
 </section>
+<script>
+const projectsSection = document.querySelector(".projects");
+
+const projectObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      projectsSection.classList.add("show");
+    }
+  });
+}, { threshold: 0.2 });
+
+projectObserver.observe(projectsSection);
+</script>
 
 
   <!-- =============== PROJECTS END =============== -->
 
 
   <!-- ================= CONTACT SECTION ================= -->
-<section id="contact" class="contact-section">
-  <h2>Contact Me</h2>
 
-  <p class="contact-subtitle">
-    Feel free to reach out for opportunities or collaborations
-  </p>
 
-  <div class="contact-cards">
 
-    <!-- Email -->
-    <a href="mailto:thangavelsaravanan386@email.com"
-       class="contact-card email"
-       target="_blank">
-      <h3>📧 Email</h3>
-      <p>thangavelsaravanan386@email.com</p>
-      <span class="contact-action">Send Mail →</span>
-    </a>
-
-    <!-- Phone -->
-    <a href="tel:+919360628386"
-       class="contact-card phone">
-      <h3>📞 Phone</h3>
-      <p>+91 9360628386</p>
-      <span class="contact-action">Call Now →</span>
-    </a>
-
-    <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/in/saravanan386"
-       class="contact-card"
-       target="_blank">
-      <h3>💼 LinkedIn</h3>
-      <p>linkedin.com/in/saravanan386</p>
-      <span class="contact-action">View Profile →</span>
-    </a>
-
-    <!-- GitHub -->
-    <a href="https://github.com/saravanan72386"
-       class="contact-card"
-       target="_blank">
-      <h3>🐙 GitHub</h3>
-      <p>github.com/saravanan72386</p>
-      <span class="contact-action">View Projects →</span>
-    </a>
-
-  </div>
+<section id="contact" class="lets-talk">
+  <h1>Let's Talk</h1>
+  <button class="talk-btn">Start</button>
 </section>
 
 
+<!-- FOOTER LAST -->
+<footer class="portfolio-footer" id="portfolioFooter">
+  <h1 class="footer-logo">Portfolio</h1>
+
+  <div class="footer-links">
+    <a href="https://github.com/saravanan72386" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/saravanan386" target="_blank">LinkedIn</a>
+    <a href="mailto:thangavelsaravanan386@email.com">Email</a>
+  </div>
+
+  <div class="footer-icons">
+    <a href="mailto:thangavelsaravanan386@email.com"><i class="fas fa-envelope"></i></a>
+    <a href="tel:+919360628386"><i class="fas fa-phone"></i></a>
+    <a href="https://www.linkedin.com/in/saravanan386" target="_blank"><i class="fab fa-linkedin"></i></a>
+    <a href="https://github.com/saravanan72386" target="_blank"><i class="fab fa-github"></i></a>
+  </div>
+</footer>
+
+
+<!-- ===== SCROLL ANIMATION SCRIPT ===== -->
+<script>
+const footer = document.getElementById("portfolioFooter");
+
+window.addEventListener("scroll", () => {
+  const footerTop = footer.getBoundingClientRect().top;
+
+  if (footerTop < window.innerHeight - 100) {
+    footer.classList.add("show");
+  }
+});
+</script>
 
   <!-- =============== CONTACT END =============== -->
 
