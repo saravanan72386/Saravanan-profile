@@ -36,52 +36,50 @@ body {
 
 /* ================= GLASS EFFECT ================= */
 /* ================= NAVBAR ================= */
-/* NAVBAR BASE */
-/* NAVBAR BASE */
+/* ================= NAVBAR ================= */
+
 .navbar {
   position: fixed;
-  top: 20px;
+  top: 0;
   width: 100%;
   z-index: 999;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .nav-container {
   max-width: 1200px;
   margin: auto;
-  padding: 0 20px;
+  padding: 18px 24px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
-/* LOGO */
+/* Logo */
 .nav-logo {
-  color: #fd870a;
+  font-size: 0.9rem;
+  letter-spacing: 6px;
+  color: #fff;
   font-weight: 600;
-  letter-spacing: 4px;
-  font-size: 14px;
 }
 
-/* NAV */
+/* Desktop Nav */
 .nav {
   display: flex;
-  gap: 28px;
-  background: #000;
-  padding: 10px 22px;
-  border-radius: 14px;
+  gap: 36px;
 }
 
-/* BUTTONS */
 .nav-btn {
-  color: #ff2b2b;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
   position: relative;
-  transition: 0.3s;
+  text-decoration: none;
+  color: #ccc;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
 }
 
-/* HOVER EFFECT */
 .nav-btn::after {
   content: "";
   position: absolute;
@@ -89,8 +87,8 @@ body {
   bottom: -6px;
   width: 0;
   height: 2px;
-  background: #ff2b2b;
-  transition: 0.3s;
+  background: linear-gradient(90deg,#00ffe0,#7f5cff);
+  transition: width 0.3s ease;
 }
 
 .nav-btn:hover {
@@ -101,19 +99,71 @@ body {
   width: 100%;
 }
 
-/* MOBILE */
+/* ================= TOGGLE ================= */
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  width: 26px;
+  height: 2px;
+  background: #fff;
+  transition: 0.4s ease;
+}
+
+/* Toggle Animation */
+.nav-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px,5px);
+}
+
+.nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px,-6px);
+}
+
+/* ================= MOBILE ================= */
+
 @media (max-width: 768px) {
-  .nav-container {
-    flex-direction: column;
-    gap: 12px;
+
+  .nav-toggle {
+    display: flex;
   }
 
   .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
     width: 100%;
-    justify-content: space-around;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(18px);
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: 40px 0;
+
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+    transition: all 0.4s ease;
+  }
+
+  .nav.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-btn {
+    font-size: 1rem;
   }
 }
-
 
 /* ================= HERO SECTION ================= */
 
@@ -231,6 +281,7 @@ body {
       border: 1px solid rgba(255, 255, 255, 0.25);
       background: rgba(255, 255, 255, 0.05);
       color: #fff;
+      padding: 15px;
       backdrop-filter: blur(12px);
     }
 
@@ -885,4 +936,49 @@ body {
     border-radius: 16px;
   }
 
+}
+/* =====================================================
+   DESKTOP (992px – 1199.98px)
+===================================================== */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+  .nav-container {
+    max-width: 1100px;
+    padding: 20px 28px;
+  }
+
+  /* HERO */
+  .hero-content {
+    max-width: 820px;
+    padding-left: 6%;
+  }
+
+  .hero-title {
+    font-size: 3.8rem;
+  }
+
+  .hero-role {
+    font-size: 1.7rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    max-width: 480px;
+  }
+
+  /* SECTIONS */
+  .about,
+  .skills,
+  .projects {
+    padding: 110px 7%;
+  }
+
+  .projects-grid {
+    gap: 36px;
+  }
+
+  /* FOOTER */
+  .portfolio-footer {
+    padding: 90px 20px;
+  }
 }

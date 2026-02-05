@@ -1,29 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Basic Meta -->
+  <!-- BASIC META -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Title -->
+  <!-- TITLE -->
   <title>Saravanan | Portfolio</title>
 
-  <!-- CSS Link -->
+  <!-- STYLES -->
   <link rel="stylesheet" href="style.css"/>
-  <!-- GOOGLE FONT -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- ICONS -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
 
-  <!-- ================= NAVBAR ================= -->
+<!-- =====================================================
+ NAVBAR
+===================================================== -->
 <header class="navbar">
   <div class="nav-container">
 
-    <!-- Logo -->
     <div class="nav-logo">P O R T F O L I O</div>
 
-    <!-- TEXT NAVBAR -->
-    <nav class="nav">
+    <div class="nav-toggle" id="navToggle">
+      <span></span><span></span><span></span>
+    </div>
+
+    <nav class="nav" id="navMenu">
       <a href="#home" class="nav-btn">Home</a>
       <a href="#projects" class="nav-btn">Projects</a>
       <a href="#about" class="nav-btn">About</a>
@@ -33,27 +40,25 @@
   </div>
 </header>
 
-  <!-- =============== NAVBAR END =============== -->
 
-
-  <!-- ================= HERO SECTION ================= -->
+<!-- =====================================================
+ HERO SECTION
+===================================================== -->
 <section id="home" class="hero">
 
-  <!-- UNICORN STUDIO BACKGROUND -->
+  <!-- UNICORN BACKGROUND -->
   <div class="hero-bg">
     <div data-us-project="hMDwMJTTZUJYWFnDPEpI" class="unicorn-canvas"></div>
   </div>
 
-  <!-- HERO CONTENT -->
+  <!-- CONTENT -->
   <div class="hero-content">
     <h1 class="hero-title">
       Hi, I'm <span>Saravanan</span>
     </h1>
 
     <h2 class="hero-role">
-      Fresher Front-End Developer
-      <span>&</span>
-      <strong>UI/UX Designer</strong>
+      Fresher Front-End Developer <span>&</span> <strong>UI/UX Designer</strong>
     </h2>
 
     <p class="hero-desc">
@@ -64,274 +69,138 @@
     <div class="hero-buttons">
       <a href="#projects" class="btn primary">View Projects</a>
       <a href="#contact" class="btn outline">Hire Me</a>
-      <a href="./UI UX Designer_saravavanan_resume.pdf"
+      <a href="./UI UX Designer_saravanan_resume.pdf"
          class="btn outline"
          download>
         Download Resume
       </a>
     </div>
   </div>
-
 </section>
 
 
-
-  <!-- Unicorn Studio Script -->
-<script>
-!function(){
-  var u=window.UnicornStudio;
-  if(u&&u.init){
-    if(document.readyState==="loading"){
-      document.addEventListener("DOMContentLoaded",function(){u.init()})
-    }else{u.init()}
-  }else{
-    window.UnicornStudio={isInitialized:false};
-    var i=document.createElement("script");
-    i.src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js";
-    i.onload=function(){
-      if(document.readyState==="loading"){
-        document.addEventListener("DOMContentLoaded",function(){UnicornStudio.init()})
-      }else{UnicornStudio.init()}
-    };
-    (document.head||document.body).appendChild(i)
-  }
-}();
-</script>
-
-
-
-
-  <!-- =============== HERO END =============== -->
-
-
-  <!-- ================= ABOUT SECTION ================= -->
+<!-- =====================================================
+ ABOUT
+===================================================== -->
 <section id="about" class="about">
   <h2>About Me</h2>
 
   <div class="about-layout">
 
-    <!-- LEFT SIDE FLIP CARDS -->
     <div class="about-highlights">
 
       <div class="flip-card gradient-card">
         <div class="flip-card-inner">
-          <div class="flip-card-front">
-            UI / UX Designer
-          </div>
+          <div class="flip-card-front">UI / UX Designer</div>
           <div class="flip-card-back">
-            Passionate about clean, user-friendly and modern UI design.
+            Passionate about clean, user-friendly modern UI design.
           </div>
         </div>
       </div>
 
       <div class="flip-card gradient-card">
         <div class="flip-card-inner">
-          <div class="flip-card-front">
-            Frontend Developer
-          </div>
+          <div class="flip-card-front">Frontend Developer</div>
           <div class="flip-card-back">
-            Skilled in HTML, CSS, JavaScript and responsive web design.
+            Skilled in HTML, CSS, JavaScript & responsive web design.
           </div>
         </div>
       </div>
 
     </div>
 
-    <!-- RIGHT SIDE ABOUT TEXT -->
     <div class="glass-card">
       <p>
-        I am a creative and detail-oriented UI/UX Designer and Frontend Developer.  
-        I focus on building visually appealing, user-friendly, and responsive websites.  
-        I love designing clean interfaces that improve user experience and engagement.
+        Creative and detail-oriented UI/UX Designer & Frontend Developer.
+        Focused on visually appealing, responsive, user-friendly websites
+        that improve engagement.
       </p>
     </div>
 
   </div>
 </section>
-<script>
-const aboutSection = document.querySelector(".about");
-
-const aboutObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      aboutSection.classList.add("show");
-    }
-  });
-}, { threshold: 0.3 });
-
-aboutObserver.observe(aboutSection);
-</script>
 
 
- <!-- SKILLS -->
+<!-- =====================================================
+ SKILLS
+===================================================== -->
 <section id="skills" class="skills">
-
   <h2 class="skills-title">Skills</h2>
 
-  <!-- Frontend -->
   <div class="skill-row">
     <h3>Frontend</h3>
     <div class="skill-line">
-      <div class="skill-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
-        <span>HTML5</span>
-      </div>
-      <div class="skill-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
-        <span>CSS3</span>
-      </div>
-      <div class="skill-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg">
-        <span>JavaScript</span>
-      </div>
-      <div class="skill-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg">
-        <span>React</span>
-      </div>
+      <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"><span>HTML5</span></div>
+      <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"><span>CSS3</span></div>
+      <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"><span>JavaScript</span></div>
+      <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"><span>React</span></div>
     </div>
   </div>
 
-  <!-- UI UX -->
   <div class="skill-row">
-    <h3>UI / UX Design</h3>
+    <h3>UI / UX</h3>
     <div class="skill-line">
-      <div class="skill-item">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png">
-        <span>UI Design</span>
-      </div>
-      <div class="skill-item">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png">
-        <span>UX Research</span>
-      </div>
+      <div class="skill-item"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png"><span>UI Design</span></div>
+      <div class="skill-item"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968672.png"><span>UX Research</span></div>
     </div>
   </div>
 
-  <!-- Tools -->
   <div class="skill-row">
     <h3>Tools</h3>
     <div class="skill-line">
-      <div class="skill-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg">
-        <span>Figma</span>
-      </div>
-      <div class="skill-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg">
-        <span>Adobe XD</span>
-      </div>
-      <div class="skill-item">
-        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
-        <span>AI Tools</span>
-      </div>
+      <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg"><span>Figma</span></div>
+      <div class="skill-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg"><span>Adobe XD</span></div>
+      <div class="skill-item"><img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"><span>AI Tools</span></div>
     </div>
   </div>
 </section>
 
-<script>
-const items = document.querySelectorAll(".skill-item");
 
-const skillObserver = new IntersectionObserver(entries => {
-  entries.forEach((entry, index) => {
-    if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "translateY(0)";
-      }, index * 100);
-    }
-  });
-}, { threshold: 0.3 });
-
-items.forEach(item => skillObserver.observe(item));
-</script>
-
-
-
-
-  <!-- =============== ABOUT END =============== -->
-
-
-  <!-- ================= PROJECTS SECTION ================= -->
+<!-- =====================================================
+ PROJECTS
+===================================================== -->
 <section id="projects" class="projects">
   <h2>My Projects</h2>
 
   <div class="projects-grid">
 
-    <!-- Project Card 1 (Clickable Link) -->
     <a href="https://saravanan72386.github.io/Thangavel-veenai-manufacturer/"
        target="_blank"
        class="project-card">
-
       <div class="project-image">
-        <img src="./music" alt="Portfolio Website">
+        <img src="./music" alt="Veena Website">
       </div>
-
       <div class="project-info">
         <h3>Veena Manufacturer Website</h3>
-        <p>
-          Responsive website for Veena manufacturer with modern UI and mobile-friendly design.
-        </p>
-
-        <div class="project-tags">
-          <span>HTML</span>
-          <span>CSS</span>
-          <span>Website</span>
-        </div>
-
+        <p>Responsive website with modern UI & mobile friendly design.</p>
+        <div class="project-tags"><span>HTML</span><span>CSS</span><span>Website</span></div>
         <span class="view-live">View Live →</span>
       </div>
     </a>
 
-
-    <!-- Project Card 2 (Normal) -->
     <div class="project-card">
       <div class="project-image">
-        <img src="./port2" alt="UI Website">
+        <img src="./port2" alt="UI Landing Page">
       </div>
-
       <div class="project-info">
         <h3>UI Landing Page</h3>
-        <p>
-          Modern landing page focusing on typography, spacing and user experience.
-        </p>
-
-        <div class="project-tags">
-          <span>HTML</span>
-          <span>CSS</span>
-          <span>UI Design</span>
-        </div>
+        <p>Typography focused modern landing page.</p>
+        <div class="project-tags"><span>HTML</span><span>CSS</span><span>UI</span></div>
       </div>
     </div>
 
   </div>
 </section>
-<script>
-const projectsSection = document.querySelector(".projects");
-
-const projectObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      projectsSection.classList.add("show");
-    }
-  });
-}, { threshold: 0.2 });
-
-projectObserver.observe(projectsSection);
-</script>
 
 
-  <!-- =============== PROJECTS END =============== -->
-
-
-  <!-- ================= CONTACT SECTION ================= -->
-
-
-
+<!-- =====================================================
+ CONTACT + FOOTER
+===================================================== -->
 <section id="contact" class="lets-talk">
   <h1>Let's Talk</h1>
   <button class="talk-btn">Start</button>
 </section>
 
-
-<!-- FOOTER LAST -->
 <footer class="portfolio-footer" id="portfolioFooter">
   <h1 class="footer-logo">Portfolio</h1>
 
@@ -350,20 +219,60 @@ projectObserver.observe(projectsSection);
 </footer>
 
 
-<!-- ===== SCROLL ANIMATION SCRIPT ===== -->
+<!-- =====================================================
+ SCRIPTS (ALL IN ONE PLACE)
+===================================================== -->
+<script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js"></script>
+
 <script>
-const footer = document.getElementById("portfolioFooter");
+/* NAV TOGGLE */
+const toggle = document.getElementById("navToggle");
+const navMenu = document.getElementById("navMenu");
 
-window.addEventListener("scroll", () => {
-  const footerTop = footer.getBoundingClientRect().top;
+toggle.onclick = () => {
+  toggle.classList.toggle("active");
+  navMenu.classList.toggle("active");
+};
 
-  if (footerTop < window.innerHeight - 100) {
-    footer.classList.add("show");
+document.querySelectorAll(".nav-btn").forEach(link =>
+  link.onclick = () => {
+    toggle.classList.remove("active");
+    navMenu.classList.remove("active");
+  }
+);
+
+/* INTERSECTION ANIMATIONS */
+const reveal = (selector, className, threshold=0.3) => {
+  const el = document.querySelector(selector);
+  if(!el) return;
+  new IntersectionObserver(entries=>{
+    if(entries[0].isIntersecting) el.classList.add(className);
+  },{threshold}).observe(el);
+};
+
+reveal(".about","show");
+reveal(".projects","show");
+
+/* SKILLS */
+document.querySelectorAll(".skill-item").forEach((item,i)=>{
+  new IntersectionObserver(e=>{
+    if(e[0].isIntersecting){
+      item.style.opacity=1;
+      item.style.transform="translateY(0)";
+    }
+  },{threshold:0.3}).observe(item);
+});
+
+/* FOOTER */
+window.addEventListener("scroll",()=>{
+  if(portfolioFooter.getBoundingClientRect().top < window.innerHeight-100){
+    portfolioFooter.classList.add("show");
   }
 });
-</script>
 
-  <!-- =============== CONTACT END =============== -->
+/* UNICORN INIT */
+UnicornStudio && UnicornStudio.init();
+</script>
 
 </body>
 </html>
