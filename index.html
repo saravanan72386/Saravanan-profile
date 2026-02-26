@@ -14,10 +14,11 @@
   <!-- ICONS -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
 
 <body>
-
+<div class="progress-bar" id="progressBar"></div>
 <!-- =====================================================
  NAVBAR
 ===================================================== -->
@@ -46,38 +47,41 @@
 ===================================================== -->
 <section id="home" class="hero">
 
-  <!-- UNICORN BACKGROUND -->
-  <div class="hero-bg">
-    <div data-us-project="hMDwMJTTZUJYWFnDPEpI" class="unicorn-canvas"></div>
-  </div>
+  <div class="hero-inner">
 
-  <!-- CONTENT -->
-  <div class="hero-content">
-    <h1 class="hero-title">
-      Hi, I'm <span>Saravanan</span>
-    </h1>
+    <div class="hero-content">
+      <p class="hero-top">CRAFTING DIGITAL EXPERIENCES</p>
 
-    <h2 class="hero-role">
-      Fresher Front-End Developer <span>&</span> <strong>UI/UX Designer</strong>
-    </h2>
+      <h1 class="hero-name">
+        I’m <span>Saravanan</span>
+      </h1>
 
-    <p class="hero-desc">
-      I design and build clean, responsive, and user-friendly websites
-      with a strong focus on modern UI.
-    </p>
+      <h2 class="hero-role">
+        Front-End Developer <span class="divider">|</span> UI/UX Designer
+      </h2>
 
-    <div class="hero-buttons">
-      <a href="#projects" class="btn primary">View Projects</a>
-      <a href="#contact" class="btn outline">Hire Me</a>
-      <a href="./UI UX Designer_saravanan_resume.pdf"
-         class="btn outline"
-         download>
-        Download Resume
-      </a>
+      <p class="hero-desc">
+        I build modern, responsive web experiences that are clean, fast, and user-focused.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#projects" class="btn primary">View Projects</a>
+        <a href="#contact" class="btn outline">Hire Me</a>
+        <a href="./UI UX Designer_saravanan_resume.pdf" class="btn outline" download>
+          Download Resume
+        </a>
+      </div>
     </div>
-  </div>
-</section>
 
+    <div class="hero-image">
+      <div class="image-wrapper">
+        <img src="./working man" alt="Saravanan Working" />
+      </div>
+    </div>
+
+  </div>
+
+</section>
 
 <!-- =====================================================
  ABOUT
@@ -118,6 +122,7 @@
     </div>
 
   </div>
+  
 </section>
 
 
@@ -160,10 +165,11 @@
  PROJECTS
 ===================================================== -->
 <section id="projects" class="projects">
-  <h2>My Projects</h2>
+  <h2 class="section-title">My Projects</h2>
 
   <div class="projects-grid">
 
+    <!-- Project 1 -->
     <a href="https://saravanan72386.github.io/Thangavel-veenai-manufacturer/"
        target="_blank"
        class="project-card">
@@ -173,13 +179,14 @@
       <div class="project-info">
         <h3>Veena Manufacturer Website</h3>
         <p>Responsive website with modern UI & mobile friendly design.</p>
-        <div class="project-tags"><span>HTML</span><span>CSS</span><span>Website</span></div>
+        <div class="project-tags">
+          <span>HTML</span><span>CSS</span><span>Website</span>
+        </div>
         <span class="view-live">View Live →</span>
       </div>
     </a>
 
-    <div class="projects-grid">
-
+    <!-- Project 2 -->
     <a href="https://saravananprofile.my.canva.site/"
        target="_blank"
        class="project-card">
@@ -187,12 +194,16 @@
         <img src="./canva" alt="Canva Projects">
       </div>
       <div class="project-info">
-        <h3>Canva projects</h3>
-        <p>Responsive website with modern UI & mobile friendly design.</p>
-        <div class="project-tags"><span>Canva</span><span>Website</span></div>
+        <h3>Canva Projects</h3>
+        <p>Creative design showcase with responsive layout.</p>
+        <div class="project-tags">
+          <span>Canva</span><span>Design</span>
+        </div>
         <span class="view-live">View Live →</span>
       </div>
     </a>
+
+  </div>
 </section>
 
 
@@ -225,8 +236,6 @@
 <!-- =====================================================
  SCRIPTS (ALL IN ONE PLACE)
 ===================================================== -->
-<script src="https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js"></script>
-
 <script>
 /* NAV TOGGLE */
 const toggle = document.getElementById("navToggle");
@@ -272,10 +281,109 @@ window.addEventListener("scroll",()=>{
     portfolioFooter.classList.add("show");
   }
 });
-
-/* UNICORN INIT */
-UnicornStudio && UnicornStudio.init();
 </script>
 
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+</script>
+
+/* HERO SECTION */
+<script>
+
+/* HERO ENTRANCE ANIMATION */
+window.addEventListener("load", () => {
+  document.querySelector(".hero").classList.add("animate");
+});
+
+/* HERO TYPING EFFECT */
+const roleText = document.querySelector(".hero-role");
+const originalText = roleText.innerText;
+roleText.innerText = "";
+
+let i = 0;
+
+function typeEffect(){
+  if(i < originalText.length){
+    roleText.innerText += originalText.charAt(i);
+    i++;
+    setTimeout(typeEffect, 25);
+  }
+}
+
+setTimeout(typeEffect, 800);
+
+/* HERO PARALLAX */
+const heroImage = document.querySelector(".hero-image img");
+
+document.addEventListener("mousemove", (e) => {
+  const x = (window.innerWidth / 2 - e.pageX) / 50;
+  const y = (window.innerHeight / 2 - e.pageY) / 50;
+  heroImage.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+/* ABOUT SECTION REVEAL */
+const aboutSection = document.querySelector(".about");
+
+const aboutObserver = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) {
+    aboutSection.classList.add("show");
+  }
+}, { threshold: 0.3 });
+
+aboutObserver.observe(aboutSection);
+</script>
+
+
+/* PROJECT SECTION REVEAL */
+<script>
+const cards = document.querySelectorAll('.project-card');
+
+const projectObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.2 });
+
+cards.forEach(card => {
+  projectObserver.observe(card);
+});
+</script>
+
+/* ================= SKILLS SECTION ================= */
+<script>
+  const skillsSection = document.querySelector(".skills");
+
+  const skillsObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        skillsSection.classList.add("animate");
+      }
+    });
+  }, { threshold: 0.3 });
+
+  skillsObserver.observe(skillsSection);
+</script>
+
+<script>
+  const talkSection = document.querySelector(".lets-talk");
+  const footer = document.querySelector(".portfolio-footer");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("animate");
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(talkSection);
+  observer.observe(footer);
+</script>
 </body>
 </html>
