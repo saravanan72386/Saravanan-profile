@@ -916,6 +916,7 @@ padding:120px 8%;
 background:#0b0b0b;
 color:#fff;
 text-align:center;
+overflow:hidden;
 }
 
 .academic-projects .section-title{
@@ -933,11 +934,11 @@ background:linear-gradient(90deg,#00ffe0,#00c3ff,#7f5cff);
 .projects-books{
 display:flex;
 gap:50px;
-justify-content:center;
+justify-content:flex-start; /* change this */
 flex-wrap:wrap;
+padding-left: 25%;
 scroll-behavior:smooth;
 }
-
 .projects-books::-webkit-scrollbar{
 display:none;
 }
@@ -947,17 +948,12 @@ display:none;
 position:relative;
 width:280px;
 height:330px;
-
 border-radius:18px;
-
 background:#111;
 color:#fff;
-
 box-shadow:0 20px 60px rgba(0,0,0,0.6);
-
 transform-style:preserve-3d;
 perspective:2000px;
-
 overflow:hidden;
 }
 
@@ -1038,7 +1034,7 @@ display:flex;
 flex-wrap:nowrap;
 overflow-x:auto;
 gap:30px;
-padding-bottom:10px;
+padding:0 20px 10px 20px; /* add left right padding */
 }
 
 .book{
