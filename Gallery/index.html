@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lumière Studio — Photo Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">Lumière <span>Studio</span></div>
+  <div class="header-actions">
+    <div class="view-toggle">
+      <button class="view-btn active" id="gridViewBtn" title="Grid view" onclick="setView('grid')">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="6" height="6" fill="currentColor" rx="0.5"/>
+          <rect x="8" y="0" width="6" height="6" fill="currentColor" rx="0.5"/>
+          <rect x="0" y="8" width="6" height="6" fill="currentColor" rx="0.5"/>
+          <rect x="8" y="8" width="6" height="6" fill="currentColor" rx="0.5"/>
+        </svg>
+      </button>
+      <button class="view-btn" id="listViewBtn" title="List view" onclick="setView('list')">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="1" width="14" height="2.5" fill="currentColor" rx="0.5"/>
+          <rect x="0" y="5.75" width="14" height="2.5" fill="currentColor" rx="0.5"/>
+          <rect x="0" y="10.5" width="14" height="2.5" fill="currentColor" rx="0.5"/>
+        </svg>
+      </button>
+    </div>
+    <button class="btn-upload" onclick="openUpload()">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 11V3M5 6l3-3 3 3M2 13h12"/></svg>
+      Upload Photos
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero-band">
+  <h1>Our <em>Visual</em> Portfolio</h1>
+  <p>A curated collection of our finest work — from brand campaigns to architectural studies, each image a story.</p>
+  <div class="stats-strip">
+    <div class="stat-item"><span class="num" id="totalCount">24</span><span class="lbl">Photos</span></div>
+    <div class="stat-item"><span class="num">5</span><span class="lbl">Categories</span></div>
+    <div class="stat-item"><span class="num">2024</span><span class="lbl">Latest Year</span></div>
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="filters">
+    <button class="filter-btn active" onclick="filter('all', this)">All</button>
+    <button class="filter-btn" onclick="filter('branding', this)">Branding</button>
+    <button class="filter-btn" onclick="filter('architecture', this)">Architecture</button>
+    <button class="filter-btn" onclick="filter('product', this)">Product</button>
+    <button class="filter-btn" onclick="filter('people', this)">People</button>
+    <button class="filter-btn" onclick="filter('nature', this)">Nature</button>
+  </div>
+  <div class="search-wrap">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6.5" cy="6.5" r="5"/><path d="M11 11l3 3"/></svg>
+    <input class="search-input" type="text" placeholder="Search photos…" id="searchInput" oninput="searchPhotos()"/>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-wrap">
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- Items injected by JS -->
+  </div>
+  <div class="empty-state" id="emptyState">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+    <h3>No photos found</h3>
+    <p>Try a different filter or search term.</p>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <div class="lightbox-inner">
+    <div class="lb-img-area">
+      <div class="lb-placeholder" id="lbPlaceholder"></div>
+      <button class="lb-nav prev" onclick="lbNav(-1)">‹</button>
+      <button class="lb-nav next" onclick="lbNav(1)">›</button>
+    </div>
+    <div class="lb-info">
+      <div class="lb-cat" id="lbCat"></div>
+      <div class="lb-title" id="lbTitle"></div>
+      <div class="lb-desc" id="lbDesc"></div>
+      <div class="lb-meta-list">
+        <div class="lb-meta-row"><span class="key">Date</span><span class="val" id="lbDate"></span></div>
+        <div class="lb-meta-row"><span class="key">Format</span><span class="val" id="lbFormat"></span></div>
+        <div class="lb-meta-row"><span class="key">Dimensions</span><span class="val" id="lbDims"></span></div>
+      </div>
+      <div class="lb-actions">
+        <button class="lb-btn primary">Download</button>
+        <button class="lb-btn secondary">Share</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD MODAL -->
+<div class="upload-modal" id="uploadModal">
+  <div class="upload-box">
+    <button class="upload-close" onclick="closeUpload()">✕</button>
+    <h2>Upload Photos</h2>
+    <p>Add new images to your gallery. Supported formats: JPG, PNG, WEBP.</p>
+    <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()"
+         ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="handleDrop(event)">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 14px;display:block"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+      <p><strong>Click to browse</strong> or drag & drop</p>
+      <p style="margin-top:6px;font-size:0.75rem;">Max 20MB per file</p>
+    </div>
+    <input type="file" id="fileInput" multiple accept="image/*" onchange="handleFiles(this.files)"/>
+    <div class="upload-progress" id="uploadProgress">
+      <p style="font-size:0.8rem;color:var(--ink-muted);margin-bottom:8px;">Uploading…</p>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───
+const PHOTOS = [
+  { id:1,  cat:'branding',     title:'Meridian Brand Identity',   desc:'A full visual identity system built for a luxury consultancy firm.',     date:'Mar 2024', format:'JPG', dims:'4800×3200', h:280, color:'#2d3a4a' },
+  { id:2,  cat:'architecture', title:'Oslo Pavilion Interior',    desc:'Clean Nordic lines captured in a public exhibition space.',              date:'Feb 2024', format:'JPG', dims:'5472×3648', h:360, color:'#c8c0b4' },
+  { id:3,  cat:'product',      title:'Sable Watch Series',        desc:'Precision timepiece photography on matte black surfaces.',               date:'Jan 2024', format:'PNG', dims:'3000×3000', h:300, color:'#1a1814' },
+  { id:4,  cat:'people',       title:'Leadership Portraits',      desc:'Executive portrait session for a global financial institution.',          date:'Dec 2023', format:'JPG', dims:'4000×5000', h:380, color:'#8a7060' },
+  { id:5,  cat:'nature',       title:'Golden Hour Coastline',     desc:'Early morning coastal landscape with ambient light and mist.',           date:'Nov 2023', format:'JPG', dims:'6000×4000', h:'260', color:'#d4b870' },
+  { id:6,  cat:'branding',     title:'Atelier Campaign 2024',     desc:'Full campaign imagery for a Parisian fashion atelier.',                  date:'Mar 2024', format:'JPG', dims:'4500×3000', h:320, color:'#e8ddd0' },
+  { id:7,  cat:'architecture', title:'Glass Tower Facade',        desc:'Reflective surface study of downtown commercial towers at dusk.',        date:'Jan 2024', format:'PNG', dims:'4800×6000', h:400, color:'#3d5060' },
+  { id:8,  cat:'product',      title:'Ceramic Studio Collection', desc:'Artisan ceramics shot with natural sidelight on linen surfaces.',        date:'Feb 2024', format:'JPG', dims:'3600×3600', h:260, color:'#c4a88a' },
+  { id:9,  cat:'people',       title:'Team Culture Series',       desc:'Candid documentary photography across three office locations.',          date:'Oct 2023', format:'JPG', dims:'5000×3333', h:300, color:'#4a6070' },
+  { id:10, cat:'nature',       title:'Alpine Morning Study',      desc:'High-altitude landscape at sunrise; 4,200m above sea level.',           date:'Sep 2023', format:'RAW', dims:'7360×4912', h:340, color:'#607888' },
+  { id:11, cat:'branding',     title:'Apex Launch Event',         desc:'Full event documentation for a tech product debut in Singapore.',       date:'Mar 2024', format:'JPG', dims:'4000×2667', h:290, color:'#2a2a3a' },
+  { id:12, cat:'product',      title:'Botanical Skincare Line',   desc:'Soft-lit product photography with live botanical props and dew.',        date:'Feb 2024', format:'PNG', dims:'3200×4800', h:420, color:'#6a8060' },
+  { id:13, cat:'architecture', title:'Museum Spiral Stair',       desc:'Architectural abstraction inside a contemporary art institution.',       date:'Dec 2023', format:'JPG', dims:'3648×5472', h:380, color:'#d0c8c0' },
+  { id:14, cat:'people',       title:'Chef Portraits — Series II',desc:'Behind-the-scenes portraiture in Michelin-starred restaurant kitchens.', date:'Nov 2023', format:'JPG', dims:'4000×5000', h:350, color:'#60483a' },
+  { id:15, cat:'nature',       title:'Desert Dune Abstracts',     desc:'Aerial texture study of Saharan dunes during golden hour.',             date:'Aug 2023', format:'JPG', dims:'6000×4000', h:270, color:'#c8a060' },
+  { id:16, cat:'branding',     title:'Studio X Identity System',  desc:'Geometric logo and collateral design for a creative studio.',           date:'Jan 2024', format:'PNG', dims:'4000×2667', h:300, color:'#1e2a38' },
+  { id:17, cat:'product',      title:'Fragrance Editorial',       desc:'Atmospheric perfume bottle photography with smoke and silk.',           date:'Mar 2024', format:'JPG', dims:'3600×4800', h:440, color:'#3a2a40' },
+  { id:18, cat:'people',       title:'Wellness Campaign',         desc:'Health and lifestyle campaign for a premium wellness brand.',           date:'Oct 2023', format:'JPG', dims:'5000×3333', h:290, color:'#8ab090' },
+  { id:19, cat:'architecture', title:'Brutalist Library',         desc:'Raw concrete and light study of a 1970s academic institution.',        date:'Sep 2023', format:'JPG', dims:'4800×3200', h:310, color:'#9a9690' },
+  { id:20, cat:'nature',       title:'Rain on Glass',             desc:'Macro studies of rainwater patterns on weathered glass surfaces.',     date:'Jul 2023', format:'PNG', dims:'4000×4000', h:330, color:'#506070' },
+  { id:21, cat:'branding',     title:'Culinary Brand Refresh',    desc:'Complete rebrand photography for a premium restaurant group.',         date:'Feb 2024', format:'JPG', dims:'4800×3200', h:260, color:'#3a3020' },
+  { id:22, cat:'product',      title:'Audio Equipment Series',    desc:'High-end headphone and speaker editorial for a tech brand.',           date:'Jan 2024', format:'JPG', dims:'4000×2667', h:290, color:'#1a1a1a' },
+  { id:23, cat:'people',       title:'Founders Series',           desc:'Documentary portraits of startup founders across seven cities.',       date:'Dec 2023', format:'JPG', dims:'4000×5000', h:370, color:'#5a5060' },
+  { id:24, cat:'nature',       title:'Forest Floor Detail',       desc:'Macro botanical study: moss, lichen, and light through canopy.',       date:'Jun 2023', format:'RAW', dims:'5184×3456', h:310, color:'#3a5030' },
+];
+
+let currentFilter = 'all';
+let currentSearch = '';
+let lightboxIndex = 0;
+let visiblePhotos = [...PHOTOS];
+
+// ─── RENDER ───
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  const query = currentSearch.toLowerCase();
+
+  visiblePhotos = PHOTOS.filter(p => {
+    const matchCat = currentFilter === 'all' || p.cat === currentFilter;
+    const matchSearch = p.title.toLowerCase().includes(query) || p.cat.toLowerCase().includes(query);
+    return matchCat && matchSearch;
+  });
+
+  grid.innerHTML = '';
+  document.getElementById('emptyState').style.display = visiblePhotos.length ? 'none' : 'block';
+  document.getElementById('totalCount').textContent = visiblePhotos.length;
+
+  visiblePhotos.forEach((p, i) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+    div.style.animationDelay = `${i * 0.04}s`;
+    div.innerHTML = `
+      <div class="img-placeholder" style="height:${p.h}px;background:${p.color};"></div>
+      <div class="img-overlay">
+        <div class="actions">
+          <div class="action-btn" title="Favorite">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 14s-6-4.35-6-8a4 4 0 018 0 4 4 0 018 0c0 3.65-6 8-6 8z"/></svg>
+          </div>
+          <div class="action-btn" title="Share">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="3" r="1.5"/><circle cx="4" cy="8" r="1.5"/><circle cx="12" cy="13" r="1.5"/><path d="M5.5 8.8l5 2.8M10.5 4.2l-5 2.8"/></svg>
+          </div>
+        </div>
+        <span class="tag">${p.cat}</span>
+        <div class="title">${p.title}</div>
+        <div class="meta">${p.date} · ${p.format}</div>
+      </div>
+      <!-- List view meta -->
+      <div class="list-meta">
+        <div class="title">${p.title}</div>
+        <div class="sub">${p.cat}</div>
+        <div class="date">${p.date} · ${p.dims}</div>
+      </div>
+      <div class="list-actions">
+        <button class="list-btn">View</button>
+        <button class="list-btn">Download</button>
+      </div>
+    `;
+    div.addEventListener('click', () => openLightbox(i));
+    grid.appendChild(div);
+  });
+}
+
+// ─── FILTER & SEARCH ───
+function filter(cat, btn) {
+  currentFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGallery();
+}
+function searchPhotos() {
+  currentSearch = document.getElementById('searchInput').value;
+  renderGallery();
+}
+
+// ─── VIEW ───
+function setView(type) {
+  const grid = document.getElementById('galleryGrid');
+  document.getElementById('gridViewBtn').classList.toggle('active', type === 'grid');
+  document.getElementById('listViewBtn').classList.toggle('active', type === 'list');
+  grid.classList.toggle('list-view', type === 'list');
+}
+
+// ─── LIGHTBOX ───
+function openLightbox(index) {
+  lightboxIndex = index;
+  updateLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeLightboxOnBg(e) {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+}
+function lbNav(dir) {
+  lightboxIndex = (lightboxIndex + dir + visiblePhotos.length) % visiblePhotos.length;
+  updateLightbox();
+}
+function updateLightbox() {
+  const p = visiblePhotos[lightboxIndex];
+  document.getElementById('lbPlaceholder').style.cssText = `background:${p.color};width:100%;min-height:420px;`;
+  document.getElementById('lbCat').textContent = p.cat.toUpperCase();
+  document.getElementById('lbTitle').textContent = p.title;
+  document.getElementById('lbDesc').textContent = p.desc;
+  document.getElementById('lbDate').textContent = p.date;
+  document.getElementById('lbFormat').textContent = p.format;
+  document.getElementById('lbDims').textContent = p.dims;
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowRight') lbNav(1);
+  if (e.key === 'ArrowLeft') lbNav(-1);
+});
+
+// ─── UPLOAD ───
+function openUpload() { document.getElementById('uploadModal').classList.add('open'); }
+function closeUpload() { document.getElementById('uploadModal').classList.remove('open'); }
+document.getElementById('uploadModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('uploadModal')) closeUpload();
+});
+function dragOver(e) { e.preventDefault(); document.getElementById('dropZone').classList.add('dragover'); }
+function dragLeave() { document.getElementById('dropZone').classList.remove('dragover'); }
+function handleDrop(e) {
+  e.preventDefault();
+  dragLeave();
+  handleFiles(e.dataTransfer.files);
+}
+function handleFiles(files) {
+  if (!files.length) return;
+  const prog = document.getElementById('uploadProgress');
+  const bar = document.getElementById('progressBar');
+  prog.style.display = 'block';
+  let p = 0;
+  const iv = setInterval(() => {
+    p += Math.random() * 18;
+    bar.style.width = Math.min(p, 100) + '%';
+    if (p >= 100) {
+      clearInterval(iv);
+      setTimeout(() => {
+        prog.style.display = 'none';
+        bar.style.width = '0%';
+        closeUpload();
+        // Simulate adding uploaded photos to gallery
+        Array.from(files).forEach((file, i) => {
+          const colors = ['#4a3a5a','#3a5a4a','#5a4a3a','#3a4a5a','#5a3a4a'];
+          PHOTOS.push({
+            id: Date.now() + i,
+            cat: 'product',
+            title: file.name.replace(/\.[^.]+$/, '').replace(/-|_/g, ' '),
+            desc: 'Uploaded image',
+            date: 'Mar 2024',
+            format: file.name.split('.').pop().toUpperCase(),
+            dims: '—',
+            h: 260 + Math.floor(Math.random() * 160),
+            color: colors[i % colors.length]
+          });
+        });
+        renderGallery();
+      }, 400);
+    }
+  }, 80);
+}
+
+// ─── INIT ───
+renderGallery();
+</script>
+</body>
+</html>
