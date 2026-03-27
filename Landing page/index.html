@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alex Mercer — Creative Director</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">AM</div>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Studio</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-left">
+    <p class="hero-eyebrow">Creative Director &amp; Strategist</p>
+    <h1>
+      Crafting<br>
+      <em>vision</em>
+      into form.
+    </h1>
+    <p class="hero-desc">
+      I shape brands, campaigns, and digital experiences that leave a mark — 
+      where restraint meets intention and every detail carries weight.
+    </p>
+    <div class="cta-group">
+      <a href="#" class="btn-primary"><span>View Selected Work</span></a>
+      <a href="#" class="btn-ghost">Let's Connect</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="portrait-frame">
+      <div class="portrait-bg"></div>
+
+      <div class="portrait-circle c1"></div>
+      <div class="portrait-circle c2"></div>
+
+      <div class="portrait-inner">
+        <div class="silhouette"></div>
+        <!-- Simulated portrait placeholder with elegant line art feel -->
+        <svg viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg"
+          style="position:absolute;inset:0;width:100%;height:100%;opacity:0.18;">
+          <defs>
+            <linearGradient id="figGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#c9a96e" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#c9a96e" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <!-- Abstract figure lines -->
+          <ellipse cx="150" cy="90" rx="48" ry="58" fill="none" stroke="url(#figGrad)" stroke-width="1"/>
+          <line x1="150" y1="148" x2="150" y2="300" stroke="url(#figGrad)" stroke-width="1"/>
+          <line x1="150" y1="185" x2="90" y2="260" stroke="url(#figGrad)" stroke-width="1"/>
+          <line x1="150" y1="185" x2="210" y2="260" stroke="url(#figGrad)" stroke-width="1"/>
+          <line x1="150" y1="300" x2="110" y2="400" stroke="url(#figGrad)" stroke-width="1"/>
+          <line x1="150" y1="300" x2="190" y2="400" stroke="url(#figGrad)" stroke-width="1"/>
+        </svg>
+
+        <div class="portrait-tag">
+          <div class="role">Available for Projects</div>
+          <div class="name">Alex Mercer</div>
+        </div>
+      </div>
+
+      <!-- Corner accents -->
+      <div class="corner tl"></div>
+      <div class="corner tr"></div>
+      <div class="corner bl"></div>
+      <div class="corner br"></div>
+
+      <!-- Floating badge -->
+      <div class="float-badge">
+        <span class="num">12+</span>
+        <span class="label">Years of<br>Excellence</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom left: scroll hint -->
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+
+  <!-- Bottom right: stats -->
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-num">80+</span>
+      <span class="stat-label">Projects</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">34</span>
+      <span class="stat-label">Clients</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">7</span>
+      <span class="stat-label">Awards</span>
+    </div>
+  </div>
+
+</section>
+
+<hr class="divider">
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hover effect on links
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+      ring.style.width = '60px';
+      ring.style.height = '60px';
+      ring.style.borderColor = 'rgba(201,169,110,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '10px';
+      cursor.style.height = '10px';
+      ring.style.width = '38px';
+      ring.style.height = '38px';
+      ring.style.borderColor = 'rgba(201,169,110,0.5)';
+    });
+  });
+
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+</body>
+</html>
