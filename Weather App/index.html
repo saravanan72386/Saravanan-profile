@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atmosphere — Weather</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="particles" id="particles"></div>
+
+<div class="app">
+  <header>
+    <div class="brand">Atmo<span>sphere</span></div>
+    <div class="time-display">
+      <span id="clock">--:--</span>
+      <span id="date-str">---</span>
+    </div>
+  </header>
+
+  <div class="search-wrapper">
+    <input class="search-input" id="search-input" type="text" placeholder="Search city…" autocomplete="off">
+    <button class="search-btn" id="search-btn" title="Search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="unit-toggle">
+    <button class="toggle-btn active" id="cel-btn">°C</button>
+    <button class="toggle-btn" id="fah-btn">°F</button>
+    <span style="flex:1"></span>
+    <button class="toggle-btn" id="loc-btn" title="Use my location">
+      📍 My Location
+    </button>
+  </div>
+
+  <div id="main-content">
+    <div class="status-msg">
+      <div class="big">🌤</div>
+      <div>Search a city to see the weather</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API_KEY = 'bd5e378503939ddaee76f12ad7a97608'; // free demo key from openweathermap
+  let unit = 'metric';
+  let lastCity = '';
+
+  // Clock
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('date-str').textContent =
+      now.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Stars
+  function createStars() {
+    const container = document.getElementById('stars');
+    for (let i = 0; i < 80; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      s.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%; top:${Math.random()*60}%;
+        animation-duration:${Math.random()*4+2}s;
+        animation-delay:${Math.random()*5}s;
+      `;
+      container.appendChild(s);
+    }
+  }
+  createStars();
+
+  // Particles
+  function createParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 12; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 6 + 2;
+      p.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        animation-duration:${Math.random()*20+15}s;
+        animation-delay:${Math.random()*15}s;
+      `;
+      container.appendChild(p);
+    }
+  }
+  createParticles();
+
+  // Weather icons mapping
+  function getIcon(code, isDay = true) {
+    if (code >= 200 && code < 300) return '⛈️';
+    if (code >= 300 && code < 400) return '🌦️';
+    if (code >= 500 && code < 510) return '🌧️';
+    if (code === 511) return '🌨️';
+    if (code >= 511 && code < 600) return '🌧️';
+    if (code >= 600 && code < 700) return '❄️';
+    if (code >= 700 && code < 800) return '🌫️';
+    if (code === 800) return isDay ? '☀️' : '🌙';
+    if (code === 801) return isDay ? '🌤️' : '☁️';
+    if (code === 802) return '⛅';
+    if (code >= 803) return '☁️';
+    return '🌡️';
+  }
+
+  function getBg(code) {
+    if (code >= 200 && code < 300) return 'var(--sky-rainy)';
+    if (code >= 300 && code < 600) return 'var(--sky-rainy)';
+    if (code >= 600 && code < 700) return 'var(--sky-cloudy)';
+    if (code >= 700 && code < 800) return 'var(--sky-cloudy)';
+    if (code === 800) return 'var(--sky-sunny)';
+    if (code <= 802) return 'var(--sky-clear)';
+    return 'var(--sky-cloudy)';
+  }
+
+  function fmt(val) {
+    return unit === 'metric'
+      ? Math.round(val) + '°C'
+      : Math.round(val * 9/5 + 32) + '°F';
+  }
+  function fmtRaw(val) {
+    return unit === 'metric' ? Math.round(val) : Math.round(val * 9/5 + 32);
+  }
+  function unitSym() { return unit === 'metric' ? '°C' : '°F'; }
+
+  function windSpeed(ms) {
+    return unit === 'metric'
+      ? Math.round(ms) + ' m/s'
+      : Math.round(ms * 2.237) + ' mph';
+  }
+
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  function formatDay(timestamp) {
+    const d = new Date(timestamp * 1000);
+    const today = new Date();
+    if (d.toDateString() === today.toDateString()) return 'Today';
+    const tom = new Date(today); tom.setDate(today.getDate()+1);
+    if (d.toDateString() === tom.toDateString()) return 'Tomorrow';
+    return days[d.getDay()];
+  }
+
+  async function fetchWeather(city) {
+    const content = document.getElementById('main-content');
+    content.innerHTML = `<div class="status-msg"><div class="big skeleton" style="width:60px;height:60px;margin:0 auto 16px;border-radius:50%"></div><div>Loading weather…</div></div>`;
+
+    try {
+      const [currentRes, forecastRes] = await Promise.all([
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`),
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`)
+      ]);
+
+      if (!currentRes.ok) throw new Error('City not found');
+      const current = await currentRes.json();
+      const forecast = await forecastRes.json();
+
+      lastCity = current.name;
+      document.body.style.background = getBg(current.weather[0].id);
+
+      renderWeather(current, forecast);
+    } catch (e) {
+      content.innerHTML = `
+        <div class="status-msg">
+          <div class="big">😶‍🌫️</div>
+          <div style="color:var(--text-primary);margin-bottom:8px">City not found</div>
+          <div style="font-size:13px">Try another name like "London" or "Tokyo"</div>
+        </div>`;
+    }
+  }
+
+  function renderWeather(w, forecast) {
+    const content = document.getElementById('main-content');
+    const isDay = w.dt > w.sys.sunrise && w.dt < w.sys.sunset;
+    const icon = getIcon(w.weather[0].id, isDay);
+    const code = w.weather[0].id;
+
+    // Hourly (next 8 slots = 24 hours)
+    const hourlyItems = forecast.list.slice(0, 8).map((item, i) => {
+      const h = new Date(item.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return `
+        <div class="hour-card ${i===0?'active':''}">
+          <div class="hour-time">${i===0?'Now':h}</div>
+          <div class="hour-icon">${getIcon(item.weather[0].id, true)}</div>
+          <div class="hour-temp">${fmtRaw(item.main.temp)}°</div>
+        </div>`;
+    }).join('');
+
+    // Daily (next 5 days)
+    const dailyMap = {};
+    forecast.list.forEach(item => {
+      const d = new Date(item.dt * 1000).toDateString();
+      if (!dailyMap[d]) dailyMap[d] = { highs: [], lows: [], icons: [], desc: item.weather[0].description };
+      dailyMap[d].highs.push(item.main.temp_max);
+      dailyMap[d].lows.push(item.main.temp_min);
+      dailyMap[d].icons.push(item.weather[0].id);
+    });
+
+    const dailyItems = Object.entries(dailyMap).slice(0, 5).map(([dateStr, data]) => {
+      const dt = new Date(dateStr);
+      const label = formatDay(dt.getTime()/1000);
+      const hi = Math.max(...data.highs);
+      const lo = Math.min(...data.lows);
+      const ic = getIcon(data.icons[Math.floor(data.icons.length/2)], true);
+      return `
+        <div class="forecast-item">
+          <div class="forecast-day">${label}</div>
+          <div class="forecast-icon">${ic}</div>
+          <div class="forecast-desc">${data.desc}</div>
+          <div class="forecast-temps">
+            <div class="temp-high">${fmtRaw(hi)}°</div>
+            <div class="temp-low">${fmtRaw(lo)}°</div>
+          </div>
+        </div>`;
+    }).join('');
+
+    const sunrise = new Date(w.sys.sunrise * 1000).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    const sunset = new Date(w.sys.sunset * 1000).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
+    const visibility = w.visibility ? (w.visibility / 1000).toFixed(1) + ' km' : 'N/A';
+
+    content.innerHTML = `
+      <div class="weather-card">
+        <div class="location-row">
+          <svg class="location-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          <span id="city-name">${w.name}, ${w.sys.country}</span>
+        </div>
+        <div class="temp-row">
+          <div>
+            <div id="temperature">${fmtRaw(w.main.temp)}<sup>${unitSym()}</sup></div>
+          </div>
+          <div class="weather-icon-large">${icon}</div>
+        </div>
+        <div id="condition">${w.weather[0].description.charAt(0).toUpperCase() + w.weather[0].description.slice(1)}</div>
+        <div id="feels-like">Feels like ${fmtRaw(w.main.feels_like)}° · High ${fmtRaw(w.main.temp_max)}° · Low ${fmtRaw(w.main.temp_min)}°</div>
+        <div class="divider"></div>
+        <div class="stats-row">
+          <div class="stat">
+            <div class="stat-icon">💧</div>
+            <div class="stat-value">${w.main.humidity}%</div>
+            <div class="stat-label">Humidity</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon">💨</div>
+            <div class="stat-value">${windSpeed(w.wind.speed)}</div>
+            <div class="stat-label">Wind</div>
+          </div>
+          <div class="stat">
+            <div class="stat-icon">🔵</div>
+            <div class="stat-value">${w.main.pressure}</div>
+            <div class="stat-label">hPa</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Hourly Forecast</div>
+      <div class="hourly-scroll">${hourlyItems}</div>
+
+      <div class="section-title">5-Day Forecast</div>
+      <div class="forecast-list" style="margin-bottom:20px">${dailyItems}</div>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-icon">🌅</div>
+          <div class="info-card-label">Sunrise</div>
+          <div class="info-card-value" style="font-size:20px">${sunrise}</div>
+          <div class="info-card-sub">Sunset ${sunset}</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">👁️</div>
+          <div class="info-card-label">Visibility</div>
+          <div class="info-card-value" style="font-size:20px">${visibility}</div>
+          <div class="info-card-sub">Clear conditions</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🌡️</div>
+          <div class="info-card-label">Dew Point</div>
+          <div class="info-card-value" style="font-size:20px">${Math.round(w.main.temp - ((100 - w.main.humidity) / 5))}°</div>
+          <div class="info-card-sub">Approx. comfort</div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🌬️</div>
+          <div class="info-card-label">Wind Dir.</div>
+          <div class="info-card-value" style="font-size:20px">${getWindDir(w.wind.deg)}</div>
+          <div class="info-card-sub">${w.wind.deg}° bearing</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function getWindDir(deg) {
+    const dirs = ['N','NE','E','SE','S','SW','W','NW'];
+    return dirs[Math.round(deg / 45) % 8];
+  }
+
+  // Search
+  document.getElementById('search-btn').addEventListener('click', () => {
+    const city = document.getElementById('search-input').value.trim();
+    if (city) fetchWeather(city);
+  });
+  document.getElementById('search-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const city = e.target.value.trim();
+      if (city) fetchWeather(city);
+    }
+  });
+
+  // Unit toggle
+  document.getElementById('cel-btn').addEventListener('click', () => {
+    unit = 'metric';
+    document.getElementById('cel-btn').classList.add('active');
+    document.getElementById('fah-btn').classList.remove('active');
+    if (lastCity) fetchWeather(lastCity);
+  });
+  document.getElementById('fah-btn').addEventListener('click', () => {
+    unit = 'imperial';
+    document.getElementById('fah-btn').classList.add('active');
+    document.getElementById('cel-btn').classList.remove('active');
+    if (lastCity) fetchWeather(lastCity);
+  });
+
+  // Geolocation
+  document.getElementById('loc-btn').addEventListener('click', () => {
+    if (!navigator.geolocation) return;
+    document.getElementById('loc-btn').textContent = '📍 Locating…';
+    navigator.geolocation.getCurrentPosition(async pos => {
+      const { latitude: lat, longitude: lon } = pos.coords;
+      try {
+        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
+        const data = await res.json();
+        document.getElementById('search-input').value = data.name;
+        document.getElementById('loc-btn').textContent = '📍 My Location';
+        fetchWeather(data.name);
+      } catch {
+        document.getElementById('loc-btn').textContent = '📍 My Location';
+      }
+    }, () => {
+      document.getElementById('loc-btn').textContent = '📍 My Location';
+    });
+  });
+
+  // Default city
+  fetchWeather('Madurai');
+</script>
+</body>
+</html>
